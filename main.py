@@ -6,7 +6,7 @@ import urllib2
 __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
 
-with urllib.urlopen('https://filmy.ml/app/channels.js') as f:
+with urllib2.urlopen('https://filmy.ml/app/channels.js') as f:
     with f.decode('utf-8') as a
         with a.split("var ")[1] as r
             eval(r.split(";")[0])
