@@ -1,5 +1,4 @@
 import sys
-from urlparse import parse_qsl
 import xbmcgui
 import xbmcplugin
 import urllib
@@ -12,7 +11,7 @@ with urllib.request.urlopen('https://filmy.ml/app/channels.js') as f:
         with a.split("var ")[1] as r
             eval(r.split(";")[0])
 
-def list_videos(category):
+def list_videos():
     listing = []
     for video in channels:
         list_item = xbmcgui.ListItem(label=video['name'], thumbnailImage=video['thumb'])
