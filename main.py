@@ -1,12 +1,12 @@
 import sys
 import xbmcgui
 import xbmcplugin
-import urllib2
+import requests
 
 __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
 
-with urllib2.urlopen('https://filmy.ml/app/channels.js') as f:
+with requests.get(url='https://filmy.ml/app/channels.js').text as f:
     with f.decode('utf-8') as a
         with a.split("var ")[1] as r
             eval(r.split(";")[0])
