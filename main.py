@@ -6,19 +6,16 @@ import requests
 __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
 
-with requests.get(url='https://filmy.ml/app/channels.js').text as f:
-    with f.decode('utf-8') as b
-        with b.split("var ")[1] as r
-            eval(r.split(";")[0])
+channels = eval(requests.get(url='https://filmy.ml/app/channels.js').text.split("var channels = ")[1].split(";")[0].replace('title', '"title"').replace('description', '"description"').replace('previewImage', '"previewImage"').replace('liveStream', '"liveStream"'))
 
 def list_videos():
     listing = []
     for video in channels:
-        list_item = xbmcgui.ListItem(label=video['name'], thumbnailImage=video['thumb'])
-        list_item.setProperty('fanart_image', video['thumb'])
-        list_item.setInfo('video', {'title': video['name'], 'genre': video['genre']})
+        list_item = xbmcgui.ListItem(label=video['title'], thumbnailImage=video['previewImage'])
+        list_item.setProperty('fanart_image', video['previewImage'])
+        list_item.setInfo('video', {'title': video['title'], 'genre': 'Filmy'})
         list_item.setProperty('IsPlayable', 'true')
-        url = '{0}?action=play&video={1}'.format(__url__, video['video'])
+        url = '{0}?action=play&video={1}'.format(__url__, video['liveStream'])
         is_folder = False
         listing.append((url, list_item, is_folder))
     xbmcplugin.addDirectoryItems(__handle__, listing, len(listing))
