@@ -2,6 +2,7 @@ import sys
 import xbmcgui
 import xbmcplugin
 import requests
+from urlparse import parse_qsl
 
 __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
